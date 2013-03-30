@@ -1,0 +1,47 @@
+{
+   "abstract" : "XML generator for dhtmlxAccordion",
+   "author" : [
+      "Lucas Tiago de Moraes <lucastiagodemoraes@gmail.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "unknown"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "DHX-Accordion",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "CAM::XML" : "0",
+            "Moose" : "0",
+            "Test::More" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "CAM::XML" : "0",
+            "ExtUtils::MakeMaker" : "0",
+            "Moose" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "CAM::XML" : "0",
+            "Moose" : "0",
+            "perl" : "5.006"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.02"
+}
