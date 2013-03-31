@@ -3,13 +3,13 @@ abstract: 'XML generator for dhtmlxAccordion'
 author:
   - 'Lucas Tiago de Moraes <lucastiagodemoraes@gmail.com>'
 build_requires:
-  CAM::XML: 0
   Moose: 0
   Test::More: 0
+  XML::LibXML: 0
 configure_requires:
-  CAM::XML: 0
   ExtUtils::MakeMaker: 0
   Moose: 0
+  XML::LibXML: 0
 dynamic_config: 0
 generated_by: 'ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921'
 license: unknown
@@ -22,7 +22,7 @@ no_index:
     - t
     - inc
 requires:
-  CAM::XML: 0
   Moose: 0
+  XML::LibXML: 0
   perl: 5.006
-version: 0.02
+version: 0.03

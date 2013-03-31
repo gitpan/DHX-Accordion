@@ -124,7 +124,7 @@
 .\" ========================================================================
 .\"
 .IX Title "DHX::Accordion 3"
-.TH DHX::Accordion 3 "2013-03-30" "perl v5.16.3" "User Contributed Perl Documentation"
+.TH DHX::Accordion 3 "2013-03-31" "perl v5.16.3" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -133,7 +133,7 @@
 DHX::Accordion \- XML generator for dhtmlxAccordion
 .SH "VERSION"
 .IX Header "VERSION"
-Version 0.02
+Version 0.03
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 .Vb 1
@@ -170,11 +170,15 @@ Version 0.02
 \&        }
 \&    );
 \&    
-\&    print "Content\-type: application/xml; charset=utf8\en\en";
+\&    print "Content\-type: application/xml; charset=". $accordion\->encoding ."\en\en";
 \&    print $accordion\->result;
 .Ve
 .SH "INSTANCE METHODS"
 .IX Header "INSTANCE METHODS"
+.ie n .IP "$accordion\->encoding('iso\-8859\-1');" 4
+.el .IP "\f(CW$accordion\fR\->encoding('iso\-8859\-1');" 4
+.IX Item "$accordion->encoding('iso-8859-1');"
+Set encoding dhtmlxAccordion. Default utf\-8
 .ie n .IP "$accordion\->skin('dhx_terrace');" 4
 .el .IP "\f(CW$accordion\fR\->skin('dhx_terrace');" 4
 .IX Item "$accordion->skin('dhx_terrace');"
@@ -195,10 +199,14 @@ Set openEffect dhtmlxAccordion. Default false
 .el .IP "\f(CW$accordion\fR\->cell({foo_key => foo_value, bar_key => bar_value});" 4
 .IX Item "$accordion->cell({foo_key => foo_value, bar_key => bar_value});"
 Set cells dhtmlxAccorsion
-.ie n .IP "$accordion\->result;" 4
-.el .IP "\f(CW$accordion\fR\->result;" 4
+.ie n .IP "$accordion\->\fIresult\fR\|(1);" 4
+.el .IP "\f(CW$accordion\fR\->\fIresult\fR\|(1);" 4
 .IX Item "$accordion->result;"
-get result xml dhtml.
+get result xml dhtml. Default 0
+.Sp
+0 \- than the document is dumped as it was originally parsed
+.Sp
+1 \- will add ignorable white spaces, so the nodes content is easier to read. Existing text nodes will not be altered
 .SH "LICENSE"
 .IX Header "LICENSE"
 opensouce

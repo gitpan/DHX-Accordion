@@ -13,13 +13,13 @@
 
 #     ABSTRACT_FROM => q[lib/DHX/Accordion.pm]
 #     AUTHOR => [q[Lucas Tiago de Moraes <lucastiagodemoraes@gmail.com>]]
-#     BUILD_REQUIRES => { Test::More=>q[0], CAM::XML=>q[0], Moose=>q[0] }
-#     CONFIGURE_REQUIRES => { ExtUtils::MakeMaker=>q[0], CAM::XML=>q[0], Moose=>q[0] }
+#     BUILD_REQUIRES => { Test::More=>q[0], XML::LibXML=>q[0], Moose=>q[0] }
+#     CONFIGURE_REQUIRES => { ExtUtils::MakeMaker=>q[0], XML::LibXML=>q[0], Moose=>q[0] }
 #     LICENSE => q[Artistic_2_0]
 #     MIN_PERL_VERSION => q[5.006]
 #     NAME => q[DHX::Accordion]
 #     PL_FILES => {  }
-#     PREREQ_PM => { Test::More=>q[0], CAM::XML=>q[0], Moose=>q[0] }
+#     PREREQ_PM => { Test::More=>q[0], XML::LibXML=>q[0], Moose=>q[0] }
 #     TEST_REQUIRES => {  }
 #     VERSION_FROM => q[lib/DHX/Accordion.pm]
 #     clean => { FILES=>q[DHX-Accordion-*] }
@@ -62,11 +62,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = DHX::Accordion
 NAME_SYM = DHX_Accordion
-VERSION = 0.02
+VERSION = 0.03
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_02
+VERSION_SYM = 0_03
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.02
+XS_VERSION = 0.03
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -260,7 +260,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = DHX-Accordion
-DISTVNAME = DHX-Accordion-0.02
+DISTVNAME = DHX-Accordion-0.03
 
 
 # --- MakeMaker macro section:
@@ -485,13 +485,13 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  - '\''Lucas Tiago de Moraes <lucastiagodemoraes@gmail.com>'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '  CAM::XML: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Moose: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Test::More: 0' >> META_new.yml
+	$(NOECHO) $(ECHO) '  XML::LibXML: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '  CAM::XML: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  ExtUtils::MakeMaker: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Moose: 0' >> META_new.yml
+	$(NOECHO) $(ECHO) '  XML::LibXML: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'dynamic_config: 1' >> META_new.yml
 	$(NOECHO) $(ECHO) 'generated_by: '\''ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'license: unknown' >> META_new.yml
@@ -504,10 +504,10 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    - t' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '  CAM::XML: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Moose: 0' >> META_new.yml
+	$(NOECHO) $(ECHO) '  XML::LibXML: 0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  perl: 5.006' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: 0.02' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: 0.03' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
 	$(NOECHO) $(ECHO) '{' > META_new.json
@@ -534,28 +534,28 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '   "prereqs" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '      "build" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '            "CAM::XML" : "0",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Moose" : "0",' >> META_new.json
-	$(NOECHO) $(ECHO) '            "Test::More" : "0"' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Test::More" : "0",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "XML::LibXML" : "0"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      },' >> META_new.json
 	$(NOECHO) $(ECHO) '      "configure" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '            "CAM::XML" : "0",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "ExtUtils::MakeMaker" : "0",' >> META_new.json
-	$(NOECHO) $(ECHO) '            "Moose" : "0"' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Moose" : "0",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "XML::LibXML" : "0"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      },' >> META_new.json
 	$(NOECHO) $(ECHO) '      "runtime" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '            "CAM::XML" : "0",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Moose" : "0",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "XML::LibXML" : "0",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "perl" : "5.006"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "0.02"' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "0.03"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
 
@@ -856,8 +856,8 @@ ppd :
 	$(NOECHO) $(ECHO) '    <AUTHOR>Lucas Tiago de Moraes &lt;lucastiagodemoraes@gmail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <PERLCORE VERSION="5,006,0,0" />' >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '        <REQUIRE NAME="CAM::XML" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Moose::" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="XML::LibXML" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-5.16" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> $(DISTNAME).ppd

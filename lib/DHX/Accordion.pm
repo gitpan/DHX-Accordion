@@ -1,7 +1,7 @@
 package DHX::Accordion;
 
 use Moose;
-use CAM::XML;
+use XML::LibXML;
 
 =head1 NAME
 
@@ -9,11 +9,11 @@ DHX::Accordion - XML generator for dhtmlxAccordion
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -50,10 +50,17 @@ our $VERSION = '0.02';
         }
     );
     
-    print "Content-type: application/xml; charset=utf8\n\n";
+    print "Content-type: application/xml; charset=". $accordion->encoding ."\n\n";
     print $accordion->result;
     
 =cut
+
+# encoding
+has 'encoding' => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'utf-8'
+);
 
 # skin
 has 'skin' => (
@@ -83,46 +90,73 @@ has 'openEffect' => (
     default => 'false'
 );
 
-# accordion
-has 'accordion' => (
+# cells
+has 'cells' => (
     is => 'rw',
-    default => sub {
-        CAM::XML->new('accordion');
-    }
+    isa => 'ArrayRef'
 );
 
-# add cell
 sub cell {
-    my $self = shift;
+    my $self  = shift;
     
-    foreach my $row (@_){
-        my $cell = CAM::XML->new('cell');
-        while(my ($key, $value) = each($row)){
-            if($key eq 'text'){
-                $cell->add(-text => $value);
-            }else{
-                $cell->setAttributes($key, $value);
-            }
-        }
-        $self->accordion->add($cell);
+    if(scalar($self->cells)){
+        my @newcells = @{$self->cells};
+        push(@newcells, @_);
+        $self->cells(\@newcells);
+    }else{
+        $self->cells(\@_);
     }
 }
 
-# print result
 sub result {
     my $self = shift;
-    $self->accordion->setAttributes('skin', $self->skin);
-    $self->accordion->setAttributes('mode', $self->mode);
-    $self->accordion->setAttributes('iconsPath', $self->iconsPath);
-    $self->accordion->setAttributes('openEffect', $self->openEffect);
-    return $self->accordion->header, $self->accordion->toString;
+    
+    my $document = XML::LibXML::Document->new('1.0', $self->encoding);
+    
+    my $accordion = $document->createElement('accordion');
+    
+    $accordion->setAttribute('skin' => $self->skin);
+    
+    $accordion->setAttribute('mode' => $self->mode);
+    
+    $accordion->setAttribute('iconsPath' => $self->iconsPath);
+    
+    $accordion->setAttribute('openEffect' => $self->openEffect);
+    
+    if($self->cells){
+        
+        foreach my $row (@{$self->cells}){
+            
+            my $cell = $document->createElement('cell');
+            
+            while(my ($key, $value) = each($row)){
+                
+                if($key eq 'text'){
+                    $cell->appendTextNode($value);
+                }else{
+                    $cell->setAttribute($key, $value);
+                }
+                
+            }
+            
+            $accordion->appendChild($cell);
+        }
+    }
+    
+    $document->setDocumentElement($accordion);
+    
+    $document->toString(shift);
 }
 
 1;
-    
+
 =head1 INSTANCE METHODS
 
 =over
+
+=item $accordion->encoding('iso-8859-1');
+
+Set encoding dhtmlxAccordion. Default utf-8
 
 =item $accordion->skin('dhx_terrace');
 
@@ -144,9 +178,13 @@ Set openEffect dhtmlxAccordion. Default false
 
 Set cells dhtmlxAccorsion
 
-=item $accordion->result;
+=item $accordion->result(1);
 
-get result xml dhtml.
+get result xml dhtml. Default 0
+
+0 - than the document is dumped as it was originally parsed
+
+1 - will add ignorable white spaces, so the nodes content is easier to read. Existing text nodes will not be altered
 
 =back
 
